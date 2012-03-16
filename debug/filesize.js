@@ -28,25 +28,27 @@
 /**
  * filesize.js
  *
+ * Transforms a file size Number into a readable String
+ * 
  * @author Jason Mulligan <jason.mulligan@avoidwork.com>
- * @version 1.3
+ * @module filesize
+ * @version 1.4
+ * 
+ * @param  {Mixed}  arg String, Int or Float to transform
+ * @param  {Number} pos Position to round to
+ * @return {String} Readable file size String
  */
 (function (global) {
 	"use strict";
 
-	/**
-	 * Transforms a file size into a readable String
-	 * 
-	 * @param  {Mixed}  arg String, Int or Float to transform
-	 * @param  {Number} pos Position to round to
-	 * @return {String} Readable file size String
-	 */
 	var filesize = function (arg, pos) {
 		var num    = String(arg).indexOf(".") > -1 ? parseFloat(arg) : parseInt(arg),
 		    sizes  = [{"B": 0}, {"KB": 1024}, {"MB": 1048576}, {"GB": 1073741824}, {"TB": 1099511627776}],
 		    i      = sizes.length,
 		    result = "",
 		    size, suffix, n, x;
+
+		if (isNaN(num) || isNaN(pos)) throw Error("Invalid arguments");
 
 		pos = typeof pos === "undefined" ? 2 : parseInt(pos);
 
